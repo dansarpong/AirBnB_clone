@@ -2,5 +2,5 @@
 ## Description (Project)
 <!-- Not done -->
 
-## Description (The commnad interpreter)
+## Description (The command interpreter)
 <!-- Not done -->
