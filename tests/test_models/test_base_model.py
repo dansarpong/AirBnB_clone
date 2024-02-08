@@ -45,6 +45,29 @@ class TestBaseModel(unittest.TestCase):
         self.assertEqual(
             model_dict["updated_at"], self.model.updated_at.isoformat())
 
+    def test_init_with_kwargs(self):
+        """ Test initialization with kwargs """
+
+        kwargs = {
+            "id": "test_id",
+            "created_at": "2022-01-01T00:00:00.000000",
+            "updated_at": "2022-01-01T00:00:00.000000",
+            "name": "test_name"
+        }
+        model = BaseModel(**kwargs)
+        self.assertEqual(model.id, "test_id")
+        self.assertEqual(model.created_at, datetime(2022, 1, 1))
+        self.assertEqual(model.updated_at, datetime(2022, 1, 1))
+        self.assertEqual(model.name, "test_name")
+
+    def test_init_without_kwargs(self):
+        """ Test initialization without kwargs """
+
+        model = BaseModel()
+        self.assertIsInstance(model.id, str)
+        self.assertIsInstance(model.created_at, datetime)
+        self.assertIsInstance(model.updated_at, datetime)
+
 
 if __name__ == '__main__':
     unittest.main()
