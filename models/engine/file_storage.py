@@ -2,6 +2,7 @@
 """ Defines FileStorage which serializes and deserializes instances """
 import json
 from models.base_model import BaseModel
+from models.user import user
 
 classes = {
     "BaseModel": BaseModel
@@ -45,4 +46,4 @@ class FileStorage:
             for key, value in obj_dict.items():
                 self.__objects[key] = classes[value["__class__"]](**value)
         except Exception:
-            pass
+ZZZ            pass
