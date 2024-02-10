@@ -24,7 +24,7 @@ class FileStorage:
         """ Sets obj in __objects """
 
         if obj is not None:
-            key = type(self).__name__ + "." + obj.id
+            key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
 
     def save(self):
