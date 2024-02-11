@@ -21,5 +21,6 @@ class HBNBCommand(cmd.Cmd):
         """Function for empty line or ENTER occurence"""
         pass
 
+
 if __name__ == '__main__':
     HBNBCommand().cmdloop()

@@ -46,4 +46,4 @@ class FileStorage:
             for key, value in obj_dict.items():
                 self.__objects[key] = classes[value["__class__"]](**value)
         except Exception:
-ZZZ            pass
+            pass
