@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ Defines the BaseModel class """
 import uuid
 from datetime import datetime
@@ -11,7 +11,6 @@ class BaseModel:
 
     def __init__(self, *args, **kwargs):
         """ Initializes the model """
-
         if kwargs:
             for key, value in kwargs.items():
                 if key in ["updated_at", "created_at"]:
@@ -28,24 +27,21 @@ class BaseModel:
 
     def __str__(self):
         """ Prints a string format of the model """
-
         return ("[{}] ({}) {}".format(
             type(self).__name__, self.id, self.__dict__))
 
     def save(self):
         """ updates the public instance attribute updated_at
         with the current datetime """
-
         self.updated_at = datetime.now()
         models.storage.save()
 
     def to_dict(self):
         """ returns a dictionary containing
         all keys/values of __dict__ of the instance """
+        new = self.__dict__.copy()
+        new["created_at"] = self.created_at.isoformat()
+        new["updated_at"] = self.updated_at.isoformat()
+        new["__class__"] = type(self).__name__
 
-        d = self.__dict__.copy()
-        d["created_at"] = self.created_at.isoformat()
-        d["updated_at"] = self.updated_at.isoformat()
-        d["__class__"] = type(self).__name__
-
-        return d
+        return new

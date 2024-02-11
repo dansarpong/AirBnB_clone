@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ Defines FileStorage which serializes and deserializes instances """
 import json
 from models.base_model import BaseModel
@@ -14,9 +14,7 @@ class FileStorage:
     """ Class that serializes and deserializes
     to-and-fro instances and a JSON file """
 
-    # Path to the JSON file
     __file_path = "file.json"
-    # Stores all objects by <class name>.id
     __objects = {}
 
     def all(self):

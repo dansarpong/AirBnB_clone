@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ Initializes the models package """
 from models.engine import file_storage
 

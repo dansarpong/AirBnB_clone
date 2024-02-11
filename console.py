@@ -1,8 +1,7 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 """ Program that contains the entry point of the command interpreter """
 import cmd
 import shlex
-import json
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
