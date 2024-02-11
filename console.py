@@ -1,10 +1,7 @@
 #!/usr/bin/env python3
 """ Program that contains the entry point of the command interpreter """
 import cmd
-from models.user import user
 
-
-import cmd
 
 class HBNBCommand(cmd.Cmd):
     """ Class for the entry point of the command interpreter """
@@ -16,7 +13,7 @@ class HBNBCommand(cmd.Cmd):
         return True
 
     def do_EOF(self, arg):
-        """ Function for EOF or ctr1-D encountered """
+        """ Function for EOF or Ctrl-D encountered """
         print("^D")
         return True
 
@@ -26,4 +23,3 @@ class HBNBCommand(cmd.Cmd):
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
-
