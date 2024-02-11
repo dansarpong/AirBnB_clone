@@ -12,24 +12,23 @@ class FileStorage:
     """ Class that serializes and deserializes
     to-and-fro instances and a JSON file """
 
+    # Path to the JSON file
     __file_path = "file.json"
+    # Stores all objects by <class name>.id
     __objects = {}
 
     def all(self):
         """ Returns the __objects dictionary """
-
         return self.__objects
 
     def new(self, obj):
         """ Sets obj in __objects """
-
         if obj is not None:
             key = obj.__class__.__name__ + "." + obj.id
             self.__objects[key] = obj
 
     def save(self):
         """ Serializes __objects to __file_path """
-
         obj = {}
         for key in self.__objects:
             obj[key] = self.__objects[key].to_dict()
@@ -38,7 +37,6 @@ class FileStorage:
 
     def reload(self):
         """ Deserializes __file_path to __objects """
-
         try:
             with open(self.__file_path, "r") as f:
                 obj_dict = json.load(f)
