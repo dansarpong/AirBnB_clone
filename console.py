@@ -5,6 +5,7 @@ import shlex
 import json
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 
 
 class HBNBCommand(cmd.Cmd):
@@ -13,6 +14,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = '(hbnb) '
     dict_classes = {
         "BaseModel": BaseModel,
+        "User": User
     }
 
     def do_quit(self, line):
