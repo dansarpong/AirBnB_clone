@@ -2,7 +2,6 @@
 """ Defines FileStorage which serializes and deserializes instances """
 import json
 from models.base_model import BaseModel
-from models.user import user
 
 classes = {
     "BaseModel": BaseModel
