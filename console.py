@@ -103,25 +103,73 @@ class HBNBCommand(cmd.Cmd):
     def do_update(self, line):
         """ Updates an instance based on the class name and id """
         args = shlex.split(line)
+        storage.reload()
+        objs_dict = storage.all()
         if not line:
             print("** class name missing **")
-        elif args[0] not in HBNBCommand.dict_classes:
+            return
+        if args[0] not in HBNBCommand.dict_classes:
             print("** class doesn't exist **")
-        elif len(args) == 1:
+            return
+        if len(args) == 1:
             print("** instance id missing **")
-        elif len(args) == 2:
-            print("** attribute name missing **")
-        elif len(args) == 3:
-            print("** value missing **")
-        else:
-            storage.reload()
-            objs_dict = storage.all()
+            return
+        try:
             key = args[0] + "." + args[1]
-            if key in objs_dict:
-                setattr(objs_dict[key], args[2], args[3])
-                storage.save()
-            else:
-                print("** no instance found **")
+            objs_dict[key]
+        except KeyError:
+            print("** no instance found **")
+            return
+        if len(args) == 2:
+            print("** attribute name missing **")
+            return
+        if len(args) == 3:
+            print("** value missing **")
+            return
+        setattr(objs_dict[key], args[2], args[3])
+        storage.save()
+
+    def do_count(self, line):
+        """ Counts the number of instances of a class """
+        args = shlex.split(line)
+        storage.reload()
+        objs_dict = storage.all()
+        count = 0
+        for key, obj in objs_dict.items():
+            if args[0] in key:
+                count += 1
+        print(count)
+
+    def default(self, line):
+        """ handle new ways of inputing data """
+        val_dict = {
+            "all": self.do_all,
+            "count": self.do_count,
+            "show": self.do_show,
+            "destroy": self.do_destroy,
+            "update": self.do_update
+        }
+        line = line.strip()
+        values = line.split(".")
+        if len(values) != 2:
+            cmd.Cmd.default(self, line)
+            return
+        class_name = values[0]
+        command = values[1].split("(")[0]
+        arg = ""
+        try:
+            inputs = values[1].split("(")[1].split(",")
+            for num in range(len(inputs)):
+                if (num != len(inputs) - 1):
+                    arg = arg + " " + shlex.split(inputs[num])[0]
+                else:
+                    arg = arg + " " + shlex.split(inputs[num][0:-1])[0]
+        except IndexError:
+            inputs = ""
+            arg = ""
+        arg = class_name + arg
+        if (command in val_dict.keys()):
+            val_dict[command](arg.strip())
 
 
 if __name__ == '__main__':
